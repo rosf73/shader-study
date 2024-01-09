@@ -17,7 +17,7 @@ import com.example.mycomposetestapp.ui.theme.MyComposeTestAppTheme
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private const val SHADER_SRC = """
+private const val FUR_SPACE_3_SHADER_SRC = """
     uniform float2 iResolution;
     uniform float iTime;
 
@@ -65,10 +65,10 @@ private const val SHADER_SRC = """
 """
 
 @Composable
-fun ShadertoyTest(
+fun FurSpace3(
     modifier: Modifier = Modifier,
 ) {
-    val shader = RuntimeShader(SHADER_SRC)
+    val shader = RuntimeShader(FUR_SPACE_3_SHADER_SRC)
     val scope = rememberCoroutineScope()
     val timeMs = remember { mutableStateOf(0F) }
     LaunchedEffect(Unit) {

@@ -1,4 +1,4 @@
-package com.example.mycomposetestapp.agsl
+package com.example.mycomposetestapp.agsl.opensrc
 
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader
@@ -15,7 +15,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private const val RAINDROP_SHADER = """
+private const val RAINDROP_SHADER_SRC = """
     uniform float2 iResolution;
     uniform float iTime;
     uniform shader composable;
@@ -178,7 +178,7 @@ fun Raindrop(
     modifier: Modifier = Modifier,
     backgroundImage: @Composable (Modifier) -> Unit,
 ) {
-    val shader = RuntimeShader(RAINDROP_SHADER)
+    val shader = RuntimeShader(RAINDROP_SHADER_SRC)
     val scope = rememberCoroutineScope()
     val timeMs = remember { mutableStateOf(0F) }
     LaunchedEffect(Unit) {

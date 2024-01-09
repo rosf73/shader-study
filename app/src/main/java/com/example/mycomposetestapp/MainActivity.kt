@@ -5,24 +5,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mycomposetestapp.agsl.AngleSine
-import com.example.mycomposetestapp.agsl.AngleWave
 import com.example.mycomposetestapp.agsl.ColorCircle
 import com.example.mycomposetestapp.agsl.GradientColorCircle
 import com.example.mycomposetestapp.agsl.Halftone
-import com.example.mycomposetestapp.agsl.Highway
-import com.example.mycomposetestapp.agsl.Raindrop
+import com.example.mycomposetestapp.agsl.opensrc.Raindrop
 import com.example.mycomposetestapp.ui.theme.MyComposeTestAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,7 +48,6 @@ class MainActivity : ComponentActivity() {
 //                    angle = 45F,
 //                )
 //                AngleWave(
-////                Highway(
 //                    modifier = Modifier.fillMaxSize(),
 //                    angle = 140F,
 //                    backgroundImage = {
@@ -69,14 +62,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
 
 @Preview(showBackground = true)
