@@ -13,10 +13,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.mycomposetestapp.agsl.ColorCircle
-import com.example.mycomposetestapp.agsl.GradientColorCircle
-import com.example.mycomposetestapp.agsl.Halftone
-import com.example.mycomposetestapp.agsl.opensrc.Raindrop
+import com.example.mycomposetestapp.ui.agsl.ColorCircle
+import com.example.mycomposetestapp.ui.agsl.GradientColorCircle
+import com.example.mycomposetestapp.ui.agsl.Halftone
+import com.example.mycomposetestapp.ui.agsl.opensrc.Raindrop
 import com.example.mycomposetestapp.ui.theme.MyComposeTestAppTheme
 
 class MainActivity : ComponentActivity() {

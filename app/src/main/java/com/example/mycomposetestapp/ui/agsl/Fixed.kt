@@ -1,8 +1,6 @@
-package com.example.mycomposetestapp.agsl
+package com.example.mycomposetestapp.ui.agsl
 
 import android.graphics.RuntimeShader
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

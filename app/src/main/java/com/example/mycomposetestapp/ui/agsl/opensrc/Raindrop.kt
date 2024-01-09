@@ -1,4 +1,4 @@
-package com.example.mycomposetestapp.agsl.opensrc
+package com.example.mycomposetestapp.ui.agsl.opensrc
 
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader
@@ -21,14 +21,13 @@ private const val RAINDROP_SHADER_SRC = """
     uniform shader composable;
     
     const float size = 0.2;
-    // BLUR derived from existical https://www.shadertoy.com/view/Xltfzj
-    const float Pi = 6.28318530718; // Pi*2
 
-    // GAUSSIAN BLUR SETTINGS {{{
-    const float Directions = 32.0; // BLUR DIRECTIONS (Default 16.0 - More is better but slower)
-    const float Quality = 8.0; // BLUR QUALITY (Default 4.0 - More is better but slower)
-    const float Size = 32.0; // BLUR SIZE (Radius)
-    // GAUSSIAN BLUR SETTINGS }}}
+    const float pi = 6.28318530718; // pi*2
+
+    // GAUSSIAN BLUR SETTINGS
+    const float blurDirections = 32.0; // Default 16.0 - More is better but slower
+    const float blurQuality = 8.0; // Default 4.0 - More is better but slower
+    const float blurSize = 32.0;
 
     float3 N13(float p) {
         //  from DAVE HOSKINS
@@ -37,7 +36,7 @@ private const val RAINDROP_SHADER_SRC = """
         return fract(float3((p3.x + p3.y)*p3.z, (p3.x+p3.z)*p3.y, (p3.y+p3.z)*p3.x));
     }
     float4 N14(float t) {
-        return fract(sin(t*float4(123., 1024., 1456., 264.))*float4(6547., 345., 8799., 1564.));
+        return fract(sin(t*float4(123., 1024., 1456., 264.)) * float4(6547., 345., 8799., 1564.));
     }
     float N(float t) {
         return fract(sin(t*12345.564)*7658.76);
@@ -84,7 +83,6 @@ private const val RAINDROP_SHADER_SRC = """
         
         float Drop = smoothstep(dSize, .0, d);
         
-        
         float r = sqrt(smoothstep(1., y, st.y));
         float cd = abs(st.x-x);
         
@@ -92,7 +90,6 @@ private const val RAINDROP_SHADER_SRC = """
         float trail = smoothstep((dSize*.5+.03)*r, (dSize*.5-.05)*r, cd);
         float trailFront = smoothstep(-.02, .02, st.y-y);
         trail *= trailFront;
-        
         
         // DROPLETS
         y = UV.y;
@@ -107,7 +104,7 @@ private const val RAINDROP_SHADER_SRC = """
         return float2(m, trail);
     }
     
-    float StaticDrops(float2 uv, float t) {
+    float staticDrops(float2 uv, float t) {
         uv *= 30.;
         
         float2 id = floor(uv);
@@ -123,7 +120,7 @@ private const val RAINDROP_SHADER_SRC = """
     }
     
     float2 rain(float2 uv, float t) {
-        float s = StaticDrops(uv, t); 
+        float s = staticDrops(uv, t); 
         float2 r1 = drops(uv, t);
         float2 r2 = drops(uv*1.8, t);
         
@@ -145,23 +142,24 @@ private const val RAINDROP_SHADER_SRC = """
         
         float2 c = rain(uv, t);
     
-        float2 e = float2(.001, 0.); //pixel offset
+        float2 e = float2(.001, 0.); // pixel offset
         float cx = rain(uv+e, t).x;
         float cy = rain(uv+e.yx, t).x;
-        float2 n = float2(cx-c.x, cy-c.x); //normals
+        float2 n = float2(cx-c.x, cy-c.x); // normals
 
-        float2 Radius = Size/iResolution.xy;
+        // BLUR derived from existical https://www.shadertoy.com/view/Xltfzj
+        float2 Radius = blurSize/iResolution.xy;
 
-        float3 col = composable.eval((UV) * iResolution).rgb;
+        float3 col = composable.eval(UV * iResolution).rgb;
         // Blur calculations
-        for (float d=0.0; d<Pi; d+=Pi/Directions) {
-            for (float i=1.0/Quality; i<=1.0; i+=1.0/Quality) {
+        for (float d=0.; d<pi; d+=pi/blurDirections) {
+            for (float i=1./blurQuality; i<=1.; i+=1./blurQuality) {
                 float3 tex = composable.eval((UV + n + float2(cos(d),sin(d))*Radius*i) * iResolution).rgb;
                 col += tex;            
             }
         }
 
-        col /= Quality * Directions - 0.0;
+        col /= blurQuality * blurDirections;
 
         float3 tex = composable.eval((UV+n) * iResolution).rgb;
         c.y = clamp(c.y, 0.0, 1.);

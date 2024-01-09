@@ -1,4 +1,4 @@
-package com.example.mycomposetestapp.agsl
+package com.example.mycomposetestapp.ui.agsl
 
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader

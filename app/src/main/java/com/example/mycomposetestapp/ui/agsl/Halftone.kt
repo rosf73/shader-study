@@ -1,8 +1,7 @@
-package com.example.mycomposetestapp.agsl
+package com.example.mycomposetestapp.ui.agsl
 
 import android.graphics.RenderEffect
 import android.graphics.RuntimeShader
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
